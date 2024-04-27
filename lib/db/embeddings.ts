@@ -1,22 +1,22 @@
-import {OpenAIApi,Configuration} from 'openai-edge'
-// attempt 1 
-const config = new Configuration({
-    apiKey:process.env.OPENAI_API_KEY!
-})
-const openai = new OpenAIApi(config)
+//attempt 2
+import {HfInference} from "@huggingface/inference"
+
+const hf = new HfInference(process.env.HF_TOKEN);
+
 
 export async function getEmbeddings(text:string) {
     try {
-        const response =  await openai.createEmbedding({
-            model: "text-embedding-3-small",
-            input:text.replace(/\n/g,' ')
+        const response =  await hf.featureExtraction({
+            model:'sentence-transformers/all-MiniLM-L6-v2',
+            inputs:text
         })
-        const result = await response.json()
-        console.log("Resssss",result)
 
-        return result.data[0].embedding as number[]
+        console.log("adfadsfasdfasdfasdfasdf",response)
+
+        // return response[0] as number[]
+        return response
     } catch (error) {
-        console.log('error calling openai embeddings api',error)
+        console.log('error calling hugging face embedding',error)
         throw error
         
     }
