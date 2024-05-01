@@ -35,7 +35,7 @@ export async function uploadToS3(
       reject(error);
     }
   });
-}
+} 
 
 export function getS3url(file_key:string){
     const url = `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.ap-southeast-2.amazonaws.com/${file_key}`

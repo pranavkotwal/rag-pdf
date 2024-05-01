@@ -19,6 +19,7 @@ export async function downloadFromS3(file_key: string): Promise<string> {
       const getObjectCommand = new GetObjectCommand(params)
  
       const response = await s3.send(getObjectCommand);
+      
       const stream = response.Body as Readable
       const file_name = `/tmp/pdf-${Date.now().toString()}.pdf`;
 
